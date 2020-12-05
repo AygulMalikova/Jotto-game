@@ -1,5 +1,6 @@
 package com.example.jotto_game
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,9 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.setHasFixedSize(false)
         recycler_view.adapter = WordAdapter(wordList)
 
+        val player = MediaPlayer.create(this, R.raw.music)
+        player.isLooping = true
+        player.start()
 
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
