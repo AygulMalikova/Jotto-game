@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jotto_game.adapters.WordAdapter
 import com.example.jotto_game.data.ExampleItem
+import com.example.jotto_game.service.BackgroundSoundService
 import kotlinx.android.synthetic.main.playing_game.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class PlayingGameActivity : AppCompatActivity() {
+    private var soundService: BackgroundSoundService? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.playing_game)
@@ -21,9 +24,8 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.setHasFixedSize(false)
         recycler_view.adapter = WordAdapter(wordList)
 
-        val player = MediaPlayer.create(this, R.raw.music)
-        player.isLooping = true
-        player.start()
+        soundService = BackgroundSoundService(this, R.raw.music)
+        soundService!!.start()
 
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
@@ -40,6 +42,7 @@ class PlayingGameActivity : AppCompatActivity() {
 
         give_up_button.setOnClickListener {
             finishGame()
+            soundService!!.pause();
         }
     }
 
@@ -116,5 +119,10 @@ class PlayingGameActivity : AppCompatActivity() {
         }
         return false
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundService!!.destroy()
     }
 }
