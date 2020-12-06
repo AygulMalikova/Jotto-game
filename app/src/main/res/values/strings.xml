@@ -9,7 +9,15 @@
     <string name="you">you</string>
     <string name="guess">guess ?</string>
 
+    <!-- Validation messages  -->
+    <string name="too_few">Too few letters</string>
+    <string name="too_much">Too much letters</string>
+    <string name="not_int">Enter integer number</string>
 
+    <!-- Setup page strings-->
     <string name="number_of_words_label">Enter number of words</string>
     <string name="number_of_words_placeholder">Number of words</string>
+
+    <string name="difficulty_label">Choose the difficulty</string>
+    <string name="difficulty_hint">Difficulty</string>
 </resources>
