@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun startGame() {
         val intent = Intent()
-        intent.setClassName(this, "com.example.game.GameActivity")
+        intent.setClassName(this, "com.example.jotto_game.SetupActivity")
         startActivity(intent)
         this.finish()
     }

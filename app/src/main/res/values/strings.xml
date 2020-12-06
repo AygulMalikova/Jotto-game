@@ -8,4 +8,8 @@
     <string name="can">can</string>
     <string name="you">you</string>
     <string name="guess">guess ?</string>
+
+
+    <string name="number_of_words_label">Enter number of words</string>
+    <string name="number_of_words_placeholder">Number of words</string>
 </resources>
