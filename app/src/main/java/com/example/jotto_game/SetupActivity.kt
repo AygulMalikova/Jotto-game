@@ -1,9 +1,11 @@
 package com.example.jotto_game
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
@@ -12,15 +14,23 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 
 class SetupActivity : AppCompatActivity() {
     lateinit var spinner: MaterialBetterSpinner //spinner
+    private lateinit var startBtn: Button
     var difficulties = arrayOf("Easy", "Medium", "Hard")
     var selectedDifficulty = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
+        startBtn = findViewById<Button>(R.id.start_button)//finding the start game button
 
         initInput()
         initSpinner()
+
+        startBtn.setOnClickListener {
+            startGame()
+        }
+
     }
 
     /**
@@ -34,17 +44,27 @@ class SetupActivity : AppCompatActivity() {
         val til =
             findViewById<View>(R.id.textInputLayout) as TextInputLayout
 
+        fun showError(message: String) {
+            til.error = message
+            startBtn.isEnabled = false
+        }
+
         numberOfWordsInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             val currentValue = numberOfWordsInput.text.toString().toIntOrNull()
             til.isErrorEnabled = false
+            startBtn.isEnabled = true
+
+            if (numberOfWordsInput.text == null) {
+                showError(getString(R.string.not_int))
+            }
 
             if (currentValue == null) {
-                til.error = R.string.not_int.toString()
+                showError(getString(R.string.not_int))
             } else {
                 if (currentValue < 3) {
-                    til.error = R.string.too_few.toString()
+                    showError(getString(R.string.too_few))
                 } else if (currentValue > 10 ) {
-                    til.error =  R.string.too_much.toString()
+                    showError(getString(R.string.too_much))
                 }
             }
             false
@@ -71,5 +91,15 @@ class SetupActivity : AppCompatActivity() {
             selectedDifficulty =
                 adapterView.getItemAtPosition(position).toString()
         })
+    }
+
+    /**
+     * Creating new intent with game activity and finishing current activity
+     */
+    private fun startGame() {
+        val intent = Intent()
+        intent.setClassName(this, "com.example.game.GameActivity")
+        startActivity(intent)
+        this.finish()
     }
 }

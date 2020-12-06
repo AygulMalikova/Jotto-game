@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         startButtonAnimation(startBtn)
 
         startBtn.setOnClickListener {
-            startGame()
+            goToSetup()
         }
 
         val helperButton: ImageButton = findViewById<ImageButton>(R.id.helper)
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Creating new intent with game activity and finishing current activity
      */
-    private fun startGame() {
+    private fun goToSetup() {
         val intent = Intent()
         intent.setClassName(this, "com.example.jotto_game.SetupActivity")
         startActivity(intent)
