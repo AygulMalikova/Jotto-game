@@ -18,6 +18,7 @@ val rules = "The rules of the game are quite simple.\n" +
         "        Your task is to guess this word.\n" +
         "        As a hint, information about your previous attempts with the number of matching letters will be displayed.\n" +
         "        Have a fun!"
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
