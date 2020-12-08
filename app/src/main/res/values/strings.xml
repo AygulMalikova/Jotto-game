@@ -15,9 +15,13 @@
     <string name="not_int">Enter integer number</string>
 
     <!-- Setup page strings-->
-    <string name="number_of_words_label">Enter number of words</string>
-    <string name="number_of_words_placeholder">Number of words</string>
+    <string name="number_of_words_placeholder">Number of letters</string>
 
-    <string name="difficulty_label">Choose the difficulty</string>
     <string name="difficulty_hint">Difficulty</string>
+
+    <!-- Const numbers   -->
+    <string name="default_letter">5</string>
+    <string name="min_letter">3</string>
+    <string name="max_letter">12</string>
+
 </resources>
