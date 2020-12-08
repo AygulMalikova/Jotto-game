@@ -1,13 +1,13 @@
-package com.example.jotto_game
+package com.example.jotto_game.game.view
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jotto_game.adapters.WordAdapter
-import com.example.jotto_game.data.ExampleItem
-import com.example.jotto_game.service.BackgroundSoundService
+import com.example.jotto_game.R
+import com.example.jotto_game.game.adapters.WordAdapter
+import com.example.jotto_game.game.data.ExampleItem
+import com.example.jotto_game.game.service.BackgroundSoundService
 import kotlinx.android.synthetic.main.playing_game.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,7 +24,9 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.setHasFixedSize(false)
         recycler_view.adapter = WordAdapter(wordList)
 
-        soundService = BackgroundSoundService(this, R.raw.music)
+        soundService = BackgroundSoundService(this,
+            R.raw.music
+        )
         soundService!!.start()
 
         check_word_button.setOnClickListener {
@@ -35,7 +37,6 @@ class PlayingGameActivity : AppCompatActivity() {
             if (similarCount != -1) {
                 val item = ExampleItem(word_tocheck.text.toString(), similarCount.toString())
                 wordList += item
-                // TODO: adapter does not updates, hz why, will fix
                 recycler_view.adapter?.notifyItemChanged(wordList.size - 1)
             }
         }
@@ -60,7 +61,7 @@ class PlayingGameActivity : AppCompatActivity() {
 
 
     private fun checkWord(generated: String): Int {
-        // TODO: check if the word exists and does not contain repeated letters
+        // TODO: check if the word exists
         var word = word_tocheck.text.toString()
         word = word.toLowerCase(Locale.ROOT)
         when {

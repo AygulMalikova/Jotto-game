@@ -1,4 +1,4 @@
-package com.example.jotto_game.adapters
+package com.example.jotto_game.game.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jotto_game.R
-import com.example.jotto_game.data.ExampleItem
+import com.example.jotto_game.game.data.ExampleItem
 import kotlinx.android.synthetic.main.example_item.view.*
 
 class WordAdapter(private val wordList: List<ExampleItem>) :

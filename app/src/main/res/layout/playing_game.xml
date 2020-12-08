@@ -10,72 +10,77 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/word_tocheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
             android:autofillHints=""
             android:hint="@string/type_word_here"
             android:inputType="textLongMessage"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.082" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/check_word_button"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/check"
-            app:backgroundTint="#E44155"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintTop_toBottomOf="@+id/word_tocheck">
 
-        <Button
-            android:id="@+id/give_up_button"
+            <Button
+                android:id="@+id/check_word_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="@string/check"
+                app:backgroundTint="#E44155"
+                android:layout_marginEnd="20dp" />
+
+            <Button
+                android:id="@+id/give_up_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="@string/give_up"
+                app:backgroundTint="#354FA1"
+                android:layout_marginStart="20dp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/give_up"
-            app:backgroundTint="#354FA1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="200dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.73"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="174dp"
-            android:layout_height="83dp"
-            android:clipToPadding="false"
-            android:padding="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.593"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.421"
-            tools:listitem="@layout/example_item" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="4dp"
+                tools:listitem="@layout/example_item" />
+        </ScrollView>
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="203dp"
-            android:layout_height="271dp"
+            android:layout_width="132dp"
+            android:layout_height="164dp"
             android:contentDescription="@string/todo"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.802"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
             app:srcCompat="@drawable/brain" />
 
         <TextView
@@ -89,8 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.582"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.92" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

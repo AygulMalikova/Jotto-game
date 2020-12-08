@@ -1,4 +1,4 @@
-package com.example.jotto_game.service
+package com.example.jotto_game.game.service
 
 import android.content.Context
 import android.media.MediaPlayer
