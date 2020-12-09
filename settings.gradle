@@ -1,3 +1,4 @@
+include ':finishGame'
 include ':game'
 include ':app'
 rootProject.name = "Jotto-game"

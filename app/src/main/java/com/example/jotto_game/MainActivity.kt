@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.game.GameActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val startBtn: Button = findViewById<Button>(R.id.start_button)//finding the start game button
+        val startBtn: Button =
+            findViewById<Button>(R.id.start_button)//finding the start game button
         startButtonAnimation(startBtn)
 
         startBtn.setOnClickListener {
@@ -28,9 +30,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun startButtonAnimation(startBtn: Button) {
         val scaleDown: ObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(
-                startBtn,
-                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
-                PropertyValuesHolder.ofFloat("scaleY", 1.2f))
+            startBtn,
+            PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+            PropertyValuesHolder.ofFloat("scaleY", 1.2f)
+        )
         scaleDown.duration = 700
 
         scaleDown.repeatCount = ObjectAnimator.INFINITE
@@ -44,8 +47,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun startGame() {
         val intent = Intent()
+        //   val intent = Intent(this, GameActivity::class.java)
         intent.setClassName(this, "com.example.game.GameActivity")
         startActivity(intent)
+        //todo probably, there's no need in finishing main activity
         this.finish()
     }
 }
