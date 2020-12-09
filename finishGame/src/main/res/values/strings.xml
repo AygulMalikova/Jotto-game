@@ -1,0 +1,9 @@
+<resources>
+    <string name="finishHomeBtn">Home</string>
+    <string name="sourceWord">word</string>
+    <string name="numberOfAttempts">numberOfAttempts</string>
+    <string name="gameResult">userWon</string>
+    <string name="winMessage">Yeah, you did that!\nSpent %d hits and guessed %s word\nCat is proud of you^)</string>
+    <string name="loseMessage">Nvm!\n Hidden word was %s word\nBetter luck next time^)</string>
+
+</resources>
