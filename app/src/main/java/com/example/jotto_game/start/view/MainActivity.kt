@@ -1,16 +1,13 @@
-package com.example.jotto_game
+package com.example.jotto_game.start.view
 
-import android.accessibilityservice.GestureDescription
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import com.example.jotto_game.R
 import com.skydoves.balloon.*
 
 val rules = "The rules of the game are quite simple.\n" +
@@ -77,7 +74,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun goToSetup() {
         val intent = Intent()
-        intent.setClassName(this, "com.example.jotto_game.SetupActivity")
+        intent.setClassName(this, "com.example.jotto_game.start.view.SetupActivity")
         startActivity(intent)
         this.finish()
     }

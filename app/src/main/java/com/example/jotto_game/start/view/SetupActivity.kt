@@ -1,10 +1,11 @@
-package com.example.jotto_game
+package com.example.jotto_game.start.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.jotto_game.R
 import com.google.android.material.textfield.TextInputLayout
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.BalloonAnimation
@@ -131,7 +132,7 @@ class SetupActivity : AppCompatActivity() {
      */
     private fun startGame() {
         val intent = Intent()
-        intent.setClassName(this, "com.example.game.GameActivity")
+        intent.setClassName(this, "com.example.jotto_game.game.view.PlayingGameActivity")
         startActivity(intent)
         this.finish()
     }

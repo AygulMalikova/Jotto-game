@@ -6,15 +6,15 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->/Users/eziothapaliya/AndroidStudioProjects/Jotto-game/game/src/main/AndroidManifest.xml
+8-->/Users/aygulmalikova/AndroidStudioProjects/Jottogame/game/src/main/AndroidManifest.xml
 9        android:targetSdkVersion="30" />
-9-->/Users/eziothapaliya/AndroidStudioProjects/Jotto-game/game/src/main/AndroidManifest.xml
+9-->/Users/aygulmalikova/AndroidStudioProjects/Jottogame/game/src/main/AndroidManifest.xml
 10
 11    <application>
-11-->/Users/eziothapaliya/AndroidStudioProjects/Jotto-game/game/src/main/AndroidManifest.xml:5:5-7:19
+11-->/Users/aygulmalikova/AndroidStudioProjects/Jottogame/game/src/main/AndroidManifest.xml:5:5-7:19
 12        <activity android:name="com.example.game.GameActivity" />
-12-->/Users/eziothapaliya/AndroidStudioProjects/Jotto-game/game/src/main/AndroidManifest.xml:6:9-59
-12-->/Users/eziothapaliya/AndroidStudioProjects/Jotto-game/game/src/main/AndroidManifest.xml:6:19-47
+12-->/Users/aygulmalikova/AndroidStudioProjects/Jottogame/game/src/main/AndroidManifest.xml:6:9-59
+12-->/Users/aygulmalikova/AndroidStudioProjects/Jottogame/game/src/main/AndroidManifest.xml:6:19-47
 13    </application>
 14
 15</manifest>
