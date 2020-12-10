@@ -17,6 +17,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 class SetupActivity : AppCompatActivity() {
     lateinit var spinner: MaterialBetterSpinner //spinner
     private lateinit var startBtn: Button
+    //TODO probably, this should be moved to resources
     var difficulties = arrayOf("Easy", "Medium", "Hard")
     var selectedDifficulty = ""
 

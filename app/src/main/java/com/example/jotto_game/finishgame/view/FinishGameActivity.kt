@@ -1,16 +1,15 @@
-package com.example.finishgame
-
+package com.example.jotto_game.finishgame.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.jotto_game.R
 import kotlinx.android.synthetic.main.activity_finish_game.*
 
 class FinishGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finish_game)
-//todo get result from extra
         val word: String
         val numberOfTries: Int
         val userWin: Boolean
@@ -30,7 +29,7 @@ class FinishGameActivity : AppCompatActivity() {
         //set picture depending on result
         if (userWin) {
             finishImageView.setImageDrawable(
-                ContextCompat.getDrawable(this, R.drawable.win)
+                    ContextCompat.getDrawable(this, R.drawable.win)
             )
 
             val message = resources.getString(R.string.winMessage, numberOfTries, word)
@@ -38,7 +37,7 @@ class FinishGameActivity : AppCompatActivity() {
 
         } else {
             finishImageView.setImageDrawable(
-                ContextCompat.getDrawable(this, R.drawable.lose)
+                    ContextCompat.getDrawable(this, R.drawable.lose)
             )
             val message = resources.getString(R.string.loseMessage, word)
             finishTextView.text = message

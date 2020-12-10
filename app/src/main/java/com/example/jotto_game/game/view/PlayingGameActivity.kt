@@ -1,10 +1,12 @@
 package com.example.jotto_game.game.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jotto_game.R
+import com.example.jotto_game.finishgame.view.FinishGameActivity
 import com.example.jotto_game.game.adapters.WordAdapter
 import com.example.jotto_game.game.data.ExampleItem
 import com.example.jotto_game.game.service.BackgroundSoundService
@@ -52,6 +54,15 @@ class PlayingGameActivity : AppCompatActivity() {
             this, "Game is finished",
             Toast.LENGTH_SHORT
         ).show()
+        val intent = Intent(this, FinishGameActivity::class.java)
+        //TODO add the values
+        intent.putExtra(resources.getString(R.string.sourceWord),"")
+        intent.putExtra(resources.getString(R.string.numberOfAttempts),"")
+        intent.putExtra(resources.getString(R.string.gameResult),"")
+
+        startActivity(intent)
+        this.finish()
+
     }
 
     private fun generateWord(): String {

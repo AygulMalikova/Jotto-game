@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".game.view.PlayingGameActivity">
         </activity>
+        <activity android:name=".finishgame.view.FinishGameActivity"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"
