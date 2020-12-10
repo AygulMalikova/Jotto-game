@@ -1,5 +1,6 @@
 package com.example.jotto_game.game.view
 
+import android.app.DownloadManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -21,6 +22,7 @@ class PlayingGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.playing_game)
         val str = generateWord()
+        var attempts = 0
         val wordList = ArrayList<ExampleItem>()
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(false)
@@ -34,9 +36,10 @@ class PlayingGameActivity : AppCompatActivity() {
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
             if (similarCount == str.length) {
-                finishGame()
+                finishGame(str, attempts, true)
             }
             if (similarCount != -1) {
+                attempts += 1
                 val item = ExampleItem(word_tocheck.text.toString(), similarCount.toString())
                 wordList += item
                 recycler_view.adapter?.notifyItemChanged(wordList.size - 1)
@@ -44,21 +47,21 @@ class PlayingGameActivity : AppCompatActivity() {
         }
 
         give_up_button.setOnClickListener {
-            finishGame()
+            finishGame(str, attempts, false)
             soundService!!.pause();
         }
     }
 
-    private fun finishGame() {
+    private fun finishGame(word: String, attempts: Int, flag: Boolean) {
         Toast.makeText(
             this, "Game is finished",
             Toast.LENGTH_SHORT
         ).show()
         val intent = Intent(this, FinishGameActivity::class.java)
         //TODO add the values
-        intent.putExtra(resources.getString(R.string.sourceWord),"")
-        intent.putExtra(resources.getString(R.string.numberOfAttempts),"")
-        intent.putExtra(resources.getString(R.string.gameResult),"")
+        intent.putExtra(resources.getString(R.string.sourceWord), word)
+        intent.putExtra(resources.getString(R.string.numberOfAttempts),attempts)
+        intent.putExtra(resources.getString(R.string.gameResult),flag)
 
         startActivity(intent)
         this.finish()
@@ -66,7 +69,6 @@ class PlayingGameActivity : AppCompatActivity() {
     }
 
     private fun generateWord(): String {
-        //  TODO: generate word
         return "about"
     }
 
