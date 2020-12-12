@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Function that create balloon for helper button with given helper text
+     */
     fun setupHelper(helperBtn: ImageButton, helperText: String) {
         val balloon = createBalloon(baseContext) {
             setArrowSize(10)
@@ -44,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     fun startGame(numberOfLetters: String, difficulty: String) {
         val intent = Intent(this, PlayingGameActivity::class.java)
 
-        intent.putExtra("numberOfLetters", numberOfLetters)
-        intent.putExtra("difficulty", difficulty)
+        intent.putExtra(getString(R.string.letters), numberOfLetters)
+        intent.putExtra(getString(R.string.difficulty), difficulty)
 
         startActivity(intent)
         this.finish()

@@ -2,6 +2,7 @@
 <resources>
     <color name="primary">#354FA1</color>
     <color name="secondary">#E44155</color>
+    <color name="blue">#D74979D4</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:text="@string/check"
-                app:backgroundTint="#E44155"
+                app:backgroundTint="@color/secondary"
                 android:layout_marginEnd="20dp" />
 
             <Button
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="@string/give_up"
-                app:backgroundTint="#354FA1"
+                app:backgroundTint="@color/primary"
                 android:layout_marginStart="20dp" />
 
         </LinearLayout>

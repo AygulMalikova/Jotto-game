@@ -77,7 +77,7 @@ class WelcomeFragment : Fragment() {
     }
 
     /**
-     * Creating new intent with game activity and finishing current activity
+     *  Navigating to the next fragment (to setup)
      */
     private fun goToSetup(view: View) {
         view.findNavController().navigate(R.id.action_welcome_to_setup)

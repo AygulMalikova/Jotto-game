@@ -24,9 +24,11 @@
     <string name="not_int">Enter integer number</string>
 
     <!-- Setup page strings-->
-    <string name="number_of_words_placeholder">Number of letters</string>
+    <string name="number_of_letters_placeholder">Number of letters</string>
+    <string name="letters">letters</string>
 
     <string name="difficulty_hint">Difficulty</string>
+    <string name="difficulty">difficulty</string>
 
     <!-- Const numbers   -->
     <string name="default_letter">5</string>

@@ -28,8 +28,6 @@ class SetupFragment : Fragment() {
     var difficulties = arrayOf("Easy", "Medium", "Hard")
     var selectedDifficulty = ""
 
-    private var numberOfLetter = ""
-    private var difficulty = ""
     private lateinit var numberOfLettersInput: EditText
 
     override fun onCreateView(
