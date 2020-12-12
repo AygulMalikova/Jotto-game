@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".start.view.SetupActivity">
+    tools:context=".start.view.SetupFragment">
 
     <TextView
         android:id="@+id/welcome_message"
@@ -13,7 +13,7 @@
         android:fontFamily="@font/bungee"
         android:text="@string/jotto"
         android:textAllCaps="true"
-        android:textColor="#E44155"
+        android:textColor="@color/secondary"
         android:textFontWeight="700"
         android:textSize="36sp"
         android:textStyle="bold"

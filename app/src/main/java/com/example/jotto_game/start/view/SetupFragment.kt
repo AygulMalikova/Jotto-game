@@ -2,9 +2,11 @@ package com.example.jotto_game.start.view
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import com.example.jotto_game.R
 import com.google.android.material.textfield.TextInputLayout
 import com.skydoves.balloon.ArrowOrientation
@@ -13,62 +15,64 @@ import com.skydoves.balloon.createBalloon
 import com.skydoves.balloon.showAlignBottom
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 
+const val helperText = "Different difficulty of the game depends on the number of attempts. " +
+        "The easy option has no limitations, medium has 15 attempts and the hard 7."
 
-class SetupActivity : AppCompatActivity() {
-    lateinit var spinner: MaterialBetterSpinner //spinner
+/**
+ * A simple [Fragment] subclass.
+ * Use the [SetupFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class SetupFragment : Fragment() {
     private lateinit var startBtn: Button
-    //TODO probably, this should be moved to resources
     var difficulties = arrayOf("Easy", "Medium", "Hard")
     var selectedDifficulty = ""
 
-    val helperText = "Different difficulty of the game depends on the number of attempts. " +
-            "The easy option has no limitations, medium has 15 attempts and the hard 7."
+    private var numberOfLetter = ""
+    private var difficulty = ""
+    private lateinit var numberOfLettersInput: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setup)
-        startBtn = findViewById<Button>(R.id.start_button)//finding the start game button
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_setup, container, false)
+    }
 
-        initInput()
-        initSpinner()
+    companion object {
+        fun newInstance() = SetupFragment()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        startBtn = view.findViewById(R.id.start_button)//finding the start game button
+
+        initInput(view)
+        initSpinner(view)
 
         startBtn.setOnClickListener {
-            startGame()
+            handleClickOnStart()
         }
 
-        val helperButton: ImageButton = findViewById<ImageButton>(R.id.helper)
+        val helperButton: ImageButton = view.findViewById<ImageButton>(R.id.helper)
 
         helperButton.setOnClickListener {
-            val balloon = createBalloon(baseContext) {
-                setArrowSize(10)
-                setWidthRatio(0.8f)
-                setArrowPosition(0.85f)
-                setCornerRadius(7f)
-                setAlpha(0.9f)
-                setText(helperText)
-                setTextSize(18f)
-                setTextColorResource(R.color.black)
-                setArrowOrientation(ArrowOrientation.TOP)
-                setBackgroundColorResource(R.color.design_default_color_background)
-                setBalloonAnimation(BalloonAnimation.FADE)
-                setPadding(10)
-                setLifecycleOwner(lifecycleOwner)
-            }
-            helperButton.showAlignBottom(balloon)
+            (requireActivity() as MainActivity).setupHelper(helperButton, helperText);
         }
-
     }
 
     /**
      * Function that add initial value to the input field and sets listener on key changes for validation
      */
-    private fun initInput() {
-        val numberOfWordsInput: EditText = findViewById<EditText>(R.id.number_of_words_input)//finding the start game button
+    private fun initInput(view: View) {
+        numberOfLettersInput = view.findViewById<EditText>(R.id.number_of_words_input)//finding the start game button
 
-        numberOfWordsInput.setText(getString(R.string.default_letter)); // 5 is a default number of letters in the word
+        numberOfLettersInput.setText(getString(R.string.default_letter)); // 5 is a default number of letters in the word
 
         val til =
-            findViewById<View>(R.id.textInputLayout) as TextInputLayout
+            view.findViewById(R.id.textInputLayout) as TextInputLayout
 
         fun showError(message: String) {
             til.error = message
@@ -78,12 +82,12 @@ class SetupActivity : AppCompatActivity() {
         val minLetters = getString(R.string.min_letter).toInt()
         val maxLetters = getString(R.string.max_letter).toInt()
 
-        numberOfWordsInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            val currentValue = numberOfWordsInput.text.toString().toIntOrNull()
+        numberOfLettersInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            val currentValue = numberOfLettersInput.text.toString().toIntOrNull()
             til.isErrorEnabled = false
             startBtn.isEnabled = true
 
-            if (numberOfWordsInput.text == null) {
+            if (numberOfLettersInput.text == null) {
                 showError(getString(R.string.not_int))
             }
 
@@ -104,12 +108,12 @@ class SetupActivity : AppCompatActivity() {
     /**
      * Function that initiates spinner by setting adapter and click listener handler
      */
-    private fun initSpinner() {
-        spinner =
-            findViewById<View>(R.id.difficulty_spinner) as MaterialBetterSpinner
+    private fun initSpinner(view: View) {
+        val spinner =
+            view.findViewById<View>(R.id.difficulty_spinner) as MaterialBetterSpinner
 
         val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this@SetupActivity,
+            requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             difficulties
         )
@@ -131,10 +135,8 @@ class SetupActivity : AppCompatActivity() {
     /**
      * Creating new intent with game activity and finishing current activity
      */
-    private fun startGame() {
-        val intent = Intent()
-        intent.setClassName(this, "com.example.jotto_game.game.view.PlayingGameActivity")
-        startActivity(intent)
-        this.finish()
+    private fun handleClickOnStart() {
+        val numberOfLetters = numberOfLettersInput.text.toString()
+        (requireActivity() as MainActivity).startGame(numberOfLetters, selectedDifficulty)
     }
 }

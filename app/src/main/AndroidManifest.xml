@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jottogame">
-        <activity android:name=".start.view.SetupActivity"/>
         <activity android:name=".start.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
