@@ -26,10 +26,11 @@ import kotlin.random.Random
 class PlayingGameActivity : AppCompatActivity() {
     private var soundService: BackgroundSoundService? = null
     var str = "-1";
-
+    var soundOn = true
     var finishGame = false
 
-    @Inject lateinit var wordViewModel: WordViewModel
+    @Inject
+    lateinit var wordViewModel: WordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,6 @@ class PlayingGameActivity : AppCompatActivity() {
 
         val level = intent.getStringExtra("difficulty").toString()
         val letters = intent.getStringExtra("letters").toString()
-
         var attempts = 0
         val wordList = ArrayList<ExampleItem>()
 
@@ -47,7 +47,8 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.setHasFixedSize(false)
         recycler_view.adapter = WordAdapter(wordList)
 
-        soundService = BackgroundSoundService(this,
+        soundService = BackgroundSoundService(
+            this,
             R.raw.music
         )
         soundService!!.start()
@@ -97,22 +98,34 @@ class PlayingGameActivity : AppCompatActivity() {
             finishGame(str, attempts, false)
             soundService!!.pause();
         }
+
+        soundButton.setOnClickListener {
+            if (soundOn) {
+                soundService!!.pause()
+                soundOn = false
+            } else {
+                soundService!!.start()
+                soundOn = true
+
+            }
+        }
     }
 
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {
         Toast.makeText(
-                this, "Game is finished",
-                Toast.LENGTH_SHORT
+            this, "Game is finished",
+            Toast.LENGTH_SHORT
         ).show()
 
-        wordViewModel.saveSecretWord("")
-        wordViewModel.resetDB()
-        finishGame = true
 
         val intent = Intent(this, FinishGameActivity::class.java)
         intent.putExtra(resources.getString(R.string.sourceWord), word)
         intent.putExtra(resources.getString(R.string.numberOfAttempts), attempts)
         intent.putExtra(resources.getString(R.string.gameResult), flag)
+
+        wordViewModel.saveSecretWord("")
+        wordViewModel.resetDB()
+        finishGame = true
 
         startActivity(intent)
         this.finish()
@@ -144,11 +157,11 @@ class PlayingGameActivity : AppCompatActivity() {
     fun fetchJson(number: Int, low: Double, high: Double) {
         val client = OkHttpClient()
         val request = Request.Builder()
-                .url("https://wordsapiv1.p.rapidapi.com/words/?letterPattern=%5E(%3F%3A(%5BA-Za-z%5D)(%3F!.*%5C1))*%24&pronunciationpattern=.*%C3%A6m%24&letters=${number}&limit=1000&page=1&frequencymin=${low}&frequencymax=${high}")
-                .get()
-                .addHeader("x-rapidapi-key", "4850f84b02mshe3f79bc0d6e5e39p1492cajsnae0a99006cbb")
-                .addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
-                .build()
+            .url("https://wordsapiv1.p.rapidapi.com/words/?letterPattern=%5E(%3F%3A(%5BA-Za-z%5D)(%3F!.*%5C1))*%24&pronunciationpattern=.*%C3%A6m%24&letters=${number}&limit=1000&page=1&frequencymin=${low}&frequencymax=${high}")
+            .get()
+            .addHeader("x-rapidapi-key", "4850f84b02mshe3f79bc0d6e5e39p1492cajsnae0a99006cbb")
+            .addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
+            .build()
 
         val response = client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
@@ -175,21 +188,21 @@ class PlayingGameActivity : AppCompatActivity() {
         when {
             word.isEmpty() -> {
                 Toast.makeText(
-                        this, "Please, enter the word first",
-                        Toast.LENGTH_SHORT
+                    this, "Please, enter the word first",
+                    Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }
             word.length != generated.length -> {
                 Toast.makeText(
-                        this, "Please, enter the word with length:" +
-                        generated.length.toString(), Toast.LENGTH_SHORT
+                    this, "Please, enter the word with length:" +
+                            generated.length.toString(), Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }
             hasSimilarLetters(word) -> {
                 Toast.makeText(
-                        this, "Word contains similar letters", Toast.LENGTH_SHORT
+                    this, "Word contains similar letters", Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }

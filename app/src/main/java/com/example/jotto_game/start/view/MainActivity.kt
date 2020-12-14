@@ -14,9 +14,11 @@ import com.example.jotto_game.game.sharedpreferences.SharedPreferencesWrapper
 import com.skydoves.balloon.*
 import javax.inject.Inject
 import androidx.lifecycle.Observer
+import com.example.jotto_game.game.service.BackgroundSoundService
 
 
 class MainActivity : AppCompatActivity() {
+   // private var soundService: BackgroundSoundService? = null
 
     @Inject lateinit var wordViewModel: WordViewModel
 
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
                 startGame(getString(R.string.default_letter), getString(R.string.default_diff))
             }
         })
+
+//        soundService = BackgroundSoundService(this,
+//            R.raw.music
+//        )
+//        soundService!!.start()
     }
 
     /**
@@ -68,6 +75,6 @@ class MainActivity : AppCompatActivity() {
 
         startActivity(intent)
 
-        this.finish()
+       // this.finish()
     }
 }
