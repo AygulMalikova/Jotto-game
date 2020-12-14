@@ -19,8 +19,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 class SetupFragment : Fragment() {
 
     private lateinit var startBtn: Button
-    var difficulties = arrayOf(R.string.default_diff.toString(), R.string.medium_diff.toString(), R.string.hard_diff.toString())
-    //var difficulties = arrayOf("Easy","Medium", "Hard")
+    private lateinit var difficulties: Array<String>
     var selectedDifficulty = ""
 
     private lateinit var numberOfLettersInput: EditText
@@ -41,6 +40,8 @@ class SetupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         startBtn = view.findViewById(R.id.start_button)//finding the start game button
+
+        difficulties = arrayOf(getString(R.string.default_diff), getString(R.string.medium_diff), getString(R.string.hard_diff))
 
         initInput(view)
         initSpinner(view)

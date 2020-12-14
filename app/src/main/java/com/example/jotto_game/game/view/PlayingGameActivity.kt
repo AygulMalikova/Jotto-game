@@ -53,10 +53,12 @@ class PlayingGameActivity : AppCompatActivity() {
         )
         soundService!!.start()
 
+        wordViewModel.allWords.observe(this, Observer { words ->
+            wordList.clear()
+            words?.let { wordList.addAll(it) }
+            attempts = wordList.size
+        })
 
-        // subscribe on all words
-        val words = wordViewModel.allWords.value // current db words (might be empty or with already entered)
-        words?.let { wordList.addAll(it) }
 
         // subscribe on secret word
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
@@ -77,7 +79,6 @@ class PlayingGameActivity : AppCompatActivity() {
                 finishGame(str, attempts, true)
             }
             if (similarCount != -1) {
-                attempts += 1
                 val item = ExampleItem(word_tocheck.text.toString(), similarCount.toString())
                 wordList += item
                 recycler_view.adapter?.notifyItemChanged(wordList.size - 1)

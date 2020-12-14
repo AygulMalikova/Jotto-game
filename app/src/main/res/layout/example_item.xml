@@ -11,9 +11,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Word"
-            android:textColor="@color/white"
-            android:background="@color/primary"
-            android:textSize="18sp">
+            android:textColor="@color/primary"
+            android:background="@color/white"
+            android:textSize="22sp">
 
         </TextView>
 
@@ -25,10 +25,10 @@
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/text_view"
             android:layout_toRightOf="@+id/text_view"
-            android:background="@color/secondary"
-            android:textColor="@color/white"
+            android:background="@color/white"
+            android:textColor="@color/secondary"
             android:text="5"
-            android:textSize="18sp">
+            android:textSize="22sp">
 
         </TextView>
 

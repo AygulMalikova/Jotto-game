@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         // subscribe on secret word
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
+            println(lastWord)
             if (lastWord != "") {
                 // if there is already a secret word then continue a game
                 startGame(getString(R.string.default_letter), getString(R.string.default_diff))

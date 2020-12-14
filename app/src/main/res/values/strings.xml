@@ -12,7 +12,7 @@
     <!-- Rules strings-->
 
     <string name="rules"> "The rules of the game are quite simple.\nBased on your preferences for word length and difficulty, a word is generated at random.\nYour task is to guess this word.\nAs a hint, information about your previous attempts with the number of matching letters will be displayed.\nHave a fun!"</string>
-    <string name="helper_text">Different difficulty of the game depends on the number of attempts. The easy option has no limitations, medium has 15 attempts and the hard 7."</string>
+    <string name="helper_text">Different difficulty of the game depends on popularity of the secret word. The easy option guesses a simple well-known word, medium proposes harder and hard option - not popular and little known"</string>
     <string name="defaultLettersNumber"></string>
     <!-- Finish Activity strings -->
     <string name="finishHomeBtn">Home</string>
