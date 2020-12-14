@@ -28,9 +28,10 @@ class PlayingGameActivity : AppCompatActivity() {
         val letters = intent.getStringExtra("letters").toString()
         generateWord(level, letters)
         while (true) {
-            if (str != "-1")
+            if (str != "-1") {
                 println(str)
-            break
+                break
+            }
         }
         var attempts = 0
         val wordList = ArrayList<ExampleItem>()
