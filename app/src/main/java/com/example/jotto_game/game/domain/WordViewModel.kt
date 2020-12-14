@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
-private const val LAST_WORD_KEY = "lastwordkey"
+private const val SECRET_WORD_KEY = "secretwordkey"
 
 class WordViewModel
 @Inject constructor(application: Application,
@@ -24,13 +24,24 @@ class WordViewModel
     private val repository: WordRepository
     val allWords: LiveData<List<ExampleItem>>
 
+    private val _secretWord: MutableLiveData<String> = MutableLiveData("")
+    val secretWord: LiveData<String> get() = _secretWord
+
     init {
         val wordsDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
         repository = WordRepository(wordsDao)
         allWords = repository.allWords
+
+        _secretWord.value = secureSharedPrefs.getString(SECRET_WORD_KEY)
     }
 
     fun insert(word: ExampleItem) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
+    }
+
+    fun saveSecretWord(word: String) {
+        secureSharedPrefs.set(SECRET_WORD_KEY, word)
+        sharedPrefs.set(SECRET_WORD_KEY, word)
+        _secretWord.postValue(word)
     }
 }
