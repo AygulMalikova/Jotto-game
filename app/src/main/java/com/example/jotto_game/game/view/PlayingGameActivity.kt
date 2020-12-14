@@ -1,11 +1,13 @@
 package com.example.jotto_game.game.view
 
-import android.app.DownloadManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.jotto_game.game.domain.WordViewModel
+import com.example.jotto_game.GameApplication
 import com.example.jotto_game.R
 import com.example.jotto_game.finishgame.view.FinishGameActivity
 import com.example.jotto_game.game.adapters.WordAdapter
@@ -13,10 +15,13 @@ import com.example.jotto_game.game.data.ExampleItem
 import com.example.jotto_game.game.service.BackgroundSoundService
 import kotlinx.android.synthetic.main.playing_game.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class PlayingGameActivity : AppCompatActivity() {
     private var soundService: BackgroundSoundService? = null
+
+    @Inject lateinit var wordViewModel: WordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,7 @@ class PlayingGameActivity : AppCompatActivity() {
         val str = generateWord()
         var attempts = 0
         val wordList = ArrayList<ExampleItem>()
+
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(false)
         recycler_view.adapter = WordAdapter(wordList)
@@ -32,6 +38,8 @@ class PlayingGameActivity : AppCompatActivity() {
             R.raw.music
         )
         soundService!!.start()
+
+        (application as GameApplication).appComponent.inject(this)
 
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
@@ -50,6 +58,11 @@ class PlayingGameActivity : AppCompatActivity() {
             finishGame(str, attempts, false)
             soundService!!.pause();
         }
+
+        wordViewModel.allWords.observe(this, Observer { words ->
+            // Update the cached copy of the words in the adapter.
+            words?.let { wordList.addAll(it) }
+        })
     }
 
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {

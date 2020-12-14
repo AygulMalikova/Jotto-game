@@ -1,14 +1,12 @@
 package com.example.jotto_game.start.view
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.jotto_game.R
 import com.example.jotto_game.game.view.PlayingGameActivity
+import com.example.jotto_game.GameApplication
 import com.skydoves.balloon.*
 
 
@@ -17,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        (application as GameApplication).appComponent.inject(this)
     }
 
     /**
