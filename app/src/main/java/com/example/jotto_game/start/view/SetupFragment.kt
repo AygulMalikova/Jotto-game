@@ -126,7 +126,7 @@ class SetupFragment : Fragment() {
         })
 
         // setSelection is not working for better spinner https://github.com/Lesilva/BetterSpinner/issues/92
-        spinner.getEditableText().append("Easy"); //setting the first choice as a default value
+        spinner.getEditableText().append(getString(R.string.default_diff)); //setting the first choice as a default value
 
     }
 

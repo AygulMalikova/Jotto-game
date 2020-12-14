@@ -27,20 +27,19 @@ class PlayingGameActivity : AppCompatActivity() {
     private var soundService: BackgroundSoundService? = null
     var str = "-1";
 
+    var finishGame = false
+
     @Inject lateinit var wordViewModel: WordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.playing_game)
+
+        (application as GameApplication).appComponent.inject(this)
+
         val level = intent.getStringExtra("difficulty").toString()
         val letters = intent.getStringExtra("letters").toString()
-        generateWord(level, letters)
-        while (true) {
-            if (str != "-1") {
-                println(str)
-                break
-            }
-        }
+
         var attempts = 0
         val wordList = ArrayList<ExampleItem>()
 
@@ -49,11 +48,34 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.adapter = WordAdapter(wordList)
 
         soundService = BackgroundSoundService(this,
-                R.raw.music
+            R.raw.music
         )
         soundService!!.start()
 
-       (application as GameApplication).appComponent.inject(this)
+        wordViewModel.allWords.observe(this, Observer { words ->
+            // Update the cached copy of the words in the adapter.
+            println(words)
+            words?.let { wordList.addAll(it) }
+        })
+
+        wordViewModel.secretWord.observe(this, Observer { lastWord ->
+            if (finishGame) {
+                str = ""
+            } else {
+                if (lastWord.isNotEmpty()) {
+                    str = lastWord
+                } else {
+                    generateWord(level, letters)
+                }
+            }
+        })
+
+//        while (true) {
+//            if (str != "-1") {
+//                println(str)
+//                break
+//            }
+//        }
 
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
@@ -74,11 +96,6 @@ class PlayingGameActivity : AppCompatActivity() {
             finishGame(str, attempts, false)
             soundService!!.pause();
         }
-
-        wordViewModel.allWords.observe(this, Observer { words ->
-            // Update the cached copy of the words in the adapter.
-            words?.let { wordList.addAll(it) }
-        })
     }
 
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {
@@ -86,6 +103,11 @@ class PlayingGameActivity : AppCompatActivity() {
                 this, "Game is finished",
                 Toast.LENGTH_SHORT
         ).show()
+
+        wordViewModel.saveSecretWord("")
+        wordViewModel.resetDB()
+        finishGame = true
+
         val intent = Intent(this, FinishGameActivity::class.java)
         intent.putExtra(resources.getString(R.string.sourceWord), word)
         intent.putExtra(resources.getString(R.string.numberOfAttempts), attempts)
@@ -135,6 +157,8 @@ class PlayingGameActivity : AppCompatActivity() {
                 val words = json.getJSONArray("data")
                 val word = words.get(Random.nextInt(0, words.length()))
                 str = word.toString()
+
+                wordViewModel.saveSecretWord(str)
             }
 
             override fun onFailure(call: Call, e: IOException) {

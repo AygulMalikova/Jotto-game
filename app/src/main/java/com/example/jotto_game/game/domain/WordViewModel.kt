@@ -32,7 +32,7 @@ class WordViewModel
         repository = WordRepository(wordsDao)
         allWords = repository.allWords
 
-        _secretWord.value = secureSharedPrefs.getString(SECRET_WORD_KEY)
+        _secretWord.value = sharedPrefs.getString(SECRET_WORD_KEY)
     }
 
     fun insert(word: ExampleItem) = viewModelScope.launch(Dispatchers.IO) {
@@ -40,8 +40,11 @@ class WordViewModel
     }
 
     fun saveSecretWord(word: String) {
-        secureSharedPrefs.set(SECRET_WORD_KEY, word)
         sharedPrefs.set(SECRET_WORD_KEY, word)
         _secretWord.postValue(word)
+    }
+
+    fun resetDB() = viewModelScope.launch(Dispatchers.IO) {
+        repository.reset()
     }
 }

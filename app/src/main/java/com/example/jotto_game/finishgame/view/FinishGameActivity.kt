@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jotto_game.R
+import com.example.jotto_game.game.view.PlayingGameActivity
 import kotlinx.android.synthetic.main.activity_finish_game.*
 
 class FinishGameActivity : AppCompatActivity() {

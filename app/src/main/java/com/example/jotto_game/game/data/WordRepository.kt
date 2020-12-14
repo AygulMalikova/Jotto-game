@@ -14,4 +14,10 @@ class WordRepository(private val wordDao: WordDao) {
     suspend fun insert(word: ExampleItem) {
         wordDao.insert(word)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun reset() {
+        wordDao.deleteAll()
+    }
 }
