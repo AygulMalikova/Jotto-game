@@ -81,6 +81,9 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha01"
+
+    // Network
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 }
 
 apply plugin: 'kotlin-android-extensions'

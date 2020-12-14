@@ -1,6 +1,5 @@
 package com.example.jotto_game.game.view
 
-import android.app.DownloadManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -12,16 +11,27 @@ import com.example.jotto_game.game.adapters.WordAdapter
 import com.example.jotto_game.game.data.ExampleItem
 import com.example.jotto_game.game.service.BackgroundSoundService
 import kotlinx.android.synthetic.main.playing_game.*
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 class PlayingGameActivity : AppCompatActivity() {
     private var soundService: BackgroundSoundService? = null
-
+    var str = "-1";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.playing_game)
-        val str = generateWord()
+        val level = intent.getStringExtra("difficulty").toString()
+        val letters = intent.getStringExtra("letters").toString()
+        generateWord(level, letters)
+        while (true) {
+            if (str != "-1")
+                println(str)
+            break
+        }
         var attempts = 0
         val wordList = ArrayList<ExampleItem>()
         recycler_view.layoutManager = LinearLayoutManager(this)
@@ -29,7 +39,7 @@ class PlayingGameActivity : AppCompatActivity() {
         recycler_view.adapter = WordAdapter(wordList)
 
         soundService = BackgroundSoundService(this,
-            R.raw.music
+                R.raw.music
         )
         soundService!!.start()
 
@@ -54,47 +64,88 @@ class PlayingGameActivity : AppCompatActivity() {
 
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {
         Toast.makeText(
-            this, "Game is finished",
-            Toast.LENGTH_SHORT
+                this, "Game is finished",
+                Toast.LENGTH_SHORT
         ).show()
         val intent = Intent(this, FinishGameActivity::class.java)
-        //TODO add the values
         intent.putExtra(resources.getString(R.string.sourceWord), word)
-        intent.putExtra(resources.getString(R.string.numberOfAttempts),attempts)
-        intent.putExtra(resources.getString(R.string.gameResult),flag)
+        intent.putExtra(resources.getString(R.string.numberOfAttempts), attempts)
+        intent.putExtra(resources.getString(R.string.gameResult), flag)
 
         startActivity(intent)
         this.finish()
 
     }
 
-    private fun generateWord(): String {
-        return "about"
+    private fun generateWord(level: String, letters: String) {
+        val number = letters.toInt()
+        var low = 0.0
+        var high = 10.0
+        when (level) {
+            "Easy" -> {
+                low = 7.0
+                high = 8.03
+            }
+            "Medium" -> {
+                low = 4.0
+                high = 7.0
+            }
+            else -> {
+                low = 1.74
+                high = 4.0
+            }
+        }
+        fetchJson(number, low, high)
+    }
+
+
+    fun fetchJson(number: Int, low: Double, high: Double) {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url("https://wordsapiv1.p.rapidapi.com/words/?letterPattern=%5E(%3F%3A(%5BA-Za-z%5D)(%3F!.*%5C1))*%24&pronunciationpattern=.*%C3%A6m%24&letters=${number}&limit=1000&page=1&frequencymin=${low}&frequencymax=${high}")
+                .get()
+                .addHeader("x-rapidapi-key", "4850f84b02mshe3f79bc0d6e5e39p1492cajsnae0a99006cbb")
+                .addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
+                .build()
+
+        val response = client.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                val result = JSONObject(body.toString())
+                val json = result.getJSONObject("results")
+                val words = json.getJSONArray("data")
+                val word = words.get(Random.nextInt(0, words.length()))
+                str = word.toString()
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+        })
     }
 
 
     private fun checkWord(generated: String): Int {
-        // TODO: check if the word exists
         var word = word_tocheck.text.toString()
         word = word.toLowerCase(Locale.ROOT)
         when {
             word.isEmpty() -> {
                 Toast.makeText(
-                    this, "Please, enter the word first",
-                    Toast.LENGTH_SHORT
+                        this, "Please, enter the word first",
+                        Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }
             word.length != generated.length -> {
                 Toast.makeText(
-                    this, "Please, enter the word with length:" +
-                            generated.length.toString(), Toast.LENGTH_SHORT
+                        this, "Please, enter the word with length:" +
+                        generated.length.toString(), Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }
             hasSimilarLetters(word) -> {
                 Toast.makeText(
-                    this, "Word contains similar letters", Toast.LENGTH_SHORT
+                        this, "Word contains similar letters", Toast.LENGTH_SHORT
                 ).show()
                 return -1
             }
