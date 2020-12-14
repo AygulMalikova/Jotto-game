@@ -16,6 +16,7 @@ import javax.inject.Named
 
 private const val SECRET_WORD_KEY = "secretwordkey"
 
+
 class WordViewModel
 @Inject constructor(application: Application,
             @Named("secure") var secureSharedPrefs: SharedPreferencesWrapper,
@@ -35,15 +36,24 @@ class WordViewModel
         _secretWord.value = sharedPrefs.getString(SECRET_WORD_KEY)
     }
 
+    /**
+     * insertion of the user quess into the repository
+     */
     fun insert(word: ExampleItem) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
     }
 
+    /**
+     * saving the secret word(got from game API)
+     */
     fun saveSecretWord(word: String) {
         sharedPrefs.set(SECRET_WORD_KEY, word)
         _secretWord.postValue(word)
     }
 
+    /**
+     * reset db(history of the game)
+     */
     fun resetDB() = viewModelScope.launch(Dispatchers.IO) {
         repository.reset()
     }

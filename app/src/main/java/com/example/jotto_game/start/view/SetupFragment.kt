@@ -1,6 +1,5 @@
 package com.example.jotto_game.start.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,14 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.jotto_game.R
 import com.google.android.material.textfield.TextInputLayout
-import com.skydoves.balloon.ArrowOrientation
-import com.skydoves.balloon.BalloonAnimation
-import com.skydoves.balloon.createBalloon
-import com.skydoves.balloon.showAlignBottom
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
 
-const val helperText = "Different difficulty of the game depends on the number of attempts. " +
-        "The easy option has no limitations, medium has 15 attempts and the hard 7."
 
 /**
  * A simple [Fragment] subclass.
@@ -24,8 +17,10 @@ const val helperText = "Different difficulty of the game depends on the number o
  * create an instance of this fragment.
  */
 class SetupFragment : Fragment() {
+
     private lateinit var startBtn: Button
-    var difficulties = arrayOf("Easy", "Medium", "Hard")
+    var difficulties = arrayOf(R.string.default_diff.toString(), R.string.medium_diff.toString(), R.string.hard_diff.toString())
+    //var difficulties = arrayOf("Easy","Medium", "Hard")
     var selectedDifficulty = ""
 
     private lateinit var numberOfLettersInput: EditText
@@ -55,9 +50,12 @@ class SetupFragment : Fragment() {
         }
 
         val helperButton: ImageButton = view.findViewById<ImageButton>(R.id.helper)
-
+        // explanation of difficulties meaning
         helperButton.setOnClickListener {
-            (requireActivity() as MainActivity).setupHelper(helperButton, helperText);
+            (requireActivity() as MainActivity).setupHelper(
+                helperButton,
+                resources.getString(R.string.helper_text)
+            );
         }
     }
 
@@ -65,7 +63,8 @@ class SetupFragment : Fragment() {
      * Function that add initial value to the input field and sets listener on key changes for validation
      */
     private fun initInput(view: View) {
-        numberOfLettersInput = view.findViewById<EditText>(R.id.number_of_words_input)//finding the start game button
+        numberOfLettersInput =
+            view.findViewById<EditText>(R.id.number_of_words_input)//finding the start game button
 
         numberOfLettersInput.setText(getString(R.string.default_letter)); // 5 is a default number of letters in the word
 
@@ -94,7 +93,7 @@ class SetupFragment : Fragment() {
             } else {
                 if (currentValue < minLetters) {
                     showError(getString(R.string.too_few))
-                } else if (currentValue > maxLetters ) {
+                } else if (currentValue > maxLetters) {
                     showError(getString(R.string.too_much))
                 }
             }
@@ -118,15 +117,14 @@ class SetupFragment : Fragment() {
 
         spinner.setAdapter(spinnerAdapter)
 
-
-
         spinner.setOnItemClickListener(AdapterView.OnItemClickListener { adapterView, view, position, l ->
             selectedDifficulty =
                 adapterView.getItemAtPosition(position).toString()
         })
 
         // setSelection is not working for better spinner https://github.com/Lesilva/BetterSpinner/issues/92
-        spinner.getEditableText().append(getString(R.string.default_diff)); //setting the first choice as a default value
+        spinner.getEditableText()
+            .append(getString(R.string.default_diff)); //setting the first choice as a default value
 
     }
 

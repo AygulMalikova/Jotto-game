@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import com.example.jotto_game.game.data.ExampleItem
 import com.example.jotto_game.game.data.WordDao
 
+/**
+ * Repository for storing the words that user tried as variant while guessing
+ */
 class WordRepository(private val wordDao: WordDao) {
 
     val allWords: LiveData<List<ExampleItem>> = wordDao.getWords()

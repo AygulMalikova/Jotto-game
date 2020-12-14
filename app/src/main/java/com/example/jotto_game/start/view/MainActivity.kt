@@ -1,8 +1,6 @@
 package com.example.jotto_game.start.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -10,15 +8,12 @@ import com.example.jotto_game.R
 import com.example.jotto_game.game.view.PlayingGameActivity
 import com.example.jotto_game.GameApplication
 import com.example.jotto_game.game.domain.WordViewModel
-import com.example.jotto_game.game.sharedpreferences.SharedPreferencesWrapper
 import com.skydoves.balloon.*
 import javax.inject.Inject
 import androidx.lifecycle.Observer
-import com.example.jotto_game.game.service.BackgroundSoundService
 
 
 class MainActivity : AppCompatActivity() {
-   // private var soundService: BackgroundSoundService? = null
 
     @Inject lateinit var wordViewModel: WordViewModel
 
@@ -35,11 +30,6 @@ class MainActivity : AppCompatActivity() {
                 startGame(getString(R.string.default_letter), getString(R.string.default_diff))
             }
         })
-
-//        soundService = BackgroundSoundService(this,
-//            R.raw.music
-//        )
-//        soundService!!.start()
     }
 
     /**
@@ -74,7 +64,5 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(getString(R.string.difficulty), difficulty)
 
         startActivity(intent)
-
-       // this.finish()
     }
 }

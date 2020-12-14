@@ -23,11 +23,6 @@ import com.skydoves.balloon.showAlignBottom
  * create an instance of this fragment.
  */
 
-const val rules = "The rules of the game are quite simple.\n" +
-        "        Based on your preferences for word length and difficulty, a word is generated at random.\n" +
-        "        Your task is to guess this word.\n" +
-        "        As a hint, information about your previous attempts with the number of matching letters will be displayed.\n" +
-        "        Have a fun!"
 
 class WelcomeFragment : Fragment() {
     override fun onCreateView(
@@ -51,11 +46,14 @@ class WelcomeFragment : Fragment() {
         startBtn.setOnClickListener {
             goToSetup(view)
         }
-
+        // button that shows a transparent window with short rules description
         val helperButton: ImageButton = view.findViewById<ImageButton>(R.id.helper)
 
         helperButton.setOnClickListener {
-            (requireActivity() as MainActivity).setupHelper(helperButton, rules);
+            (requireActivity() as MainActivity).setupHelper(
+                helperButton,
+                resources.getString(R.string.rules)
+            );
         }
     }
 
@@ -67,7 +65,8 @@ class WelcomeFragment : Fragment() {
         val scaleDown: ObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(
             startBtn,
             PropertyValuesHolder.ofFloat("scaleX", 1.2f),
-            PropertyValuesHolder.ofFloat("scaleY", 1.2f))
+            PropertyValuesHolder.ofFloat("scaleY", 1.2f)
+        )
         scaleDown.duration = 700
 
         scaleDown.repeatCount = ObjectAnimator.INFINITE

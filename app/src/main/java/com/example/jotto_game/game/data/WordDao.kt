@@ -7,6 +7,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.example.jotto_game.game.data.ExampleItem
 
+/**
+ * Dao for mapping the Word(ExampleItem) obj with the db records
+ */
 @Dao
 interface WordDao {
 

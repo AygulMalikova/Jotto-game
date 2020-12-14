@@ -9,6 +9,10 @@ import com.example.jotto_game.R
 import com.example.jotto_game.game.data.ExampleItem
 import kotlinx.android.synthetic.main.example_item.view.*
 
+/**
+ * WordAdapter used for depicting of the words inputted by user and the number of letters that are common with the hidden word in each.
+ * Used in PlayingGameActivity
+ */
 class WordAdapter(private val wordList: List<ExampleItem>) :
     RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
