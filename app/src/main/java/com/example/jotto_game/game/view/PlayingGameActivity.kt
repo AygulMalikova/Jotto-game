@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jotto_game.game.domain.WordViewModel
 import com.example.jotto_game.GameApplication
@@ -39,7 +40,7 @@ class PlayingGameActivity : AppCompatActivity() {
         )
         soundService!!.start()
 
-        (application as GameApplication).appComponent.inject(this)
+       (application as GameApplication).appComponent.inject(this)
 
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
@@ -51,6 +52,8 @@ class PlayingGameActivity : AppCompatActivity() {
                 val item = ExampleItem(word_tocheck.text.toString(), similarCount.toString())
                 wordList += item
                 recycler_view.adapter?.notifyItemChanged(wordList.size - 1)
+
+                wordViewModel.insert(item)
             }
         }
 

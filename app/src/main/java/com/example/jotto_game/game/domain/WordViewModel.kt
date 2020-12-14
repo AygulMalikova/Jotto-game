@@ -24,21 +24,13 @@ class WordViewModel
     private val repository: WordRepository
     val allWords: LiveData<List<ExampleItem>>
 
-    private val _lastWord: MutableLiveData<String> = MutableLiveData("")
-    val lastWord: LiveData<String> get() = _lastWord
-
     init {
         val wordsDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
         repository = WordRepository(wordsDao)
         allWords = repository.allWords
-
-        _lastWord.value = secureSharedPrefs.getString(LAST_WORD_KEY)
     }
 
     fun insert(word: ExampleItem) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
-        secureSharedPrefs.set(LAST_WORD_KEY, word.word)
-        sharedPrefs.set(LAST_WORD_KEY, word.word)
-        _lastWord.postValue(word.word)
     }
 }

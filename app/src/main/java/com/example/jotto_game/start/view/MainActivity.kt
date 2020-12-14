@@ -7,15 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.jotto_game.R
 import com.example.jotto_game.game.view.PlayingGameActivity
 import com.example.jotto_game.GameApplication
+import com.example.jotto_game.game.domain.WordViewModel
 import com.skydoves.balloon.*
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
+//    @Inject
+//    lateinit var wordViewModel: WordViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        (application as GameApplication).appComponent.inject(this)
+//        (application as GameApplication).appComponent.inject(this)
     }
 
     /**
