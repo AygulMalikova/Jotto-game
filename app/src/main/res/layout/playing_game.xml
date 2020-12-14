@@ -54,34 +54,30 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="231dp"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="246dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:background="@color/transparent"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:padding="4dp"
-                tools:listitem="@layout/example_item" />
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:listitem="@layout/example_item" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="132dp"
             android:layout_height="164dp"
+            android:layout_marginTop="28dp"
             android:contentDescription="@string/todo"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view"
             app:srcCompat="@drawable/brain" />
 
         <TextView
@@ -91,9 +87,7 @@
             android:fontFamily="@font/caveat_bold"
             android:text="@string/can_you_guess_the_word"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.582"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 

@@ -55,9 +55,8 @@ class PlayingGameActivity : AppCompatActivity() {
 
 
         // subscribe on all words
-        wordViewModel.allWords.observe(this, Observer { words ->
-            words?.let { wordList.addAll(it) }
-        })
+        val words = wordViewModel.allWords.value // current db words (might be empty or with already entered)
+        words?.let { wordList.addAll(it) }
 
         // subscribe on secret word
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
@@ -134,17 +133,17 @@ class PlayingGameActivity : AppCompatActivity() {
         var low = 0.0
         var high = 10.0
         when (level) {
-            "Easy" -> {
-                low = 7.0
-                high = 8.03
+            "Hard" -> {
+                low = 1.74
+                high = 4.0
             }
             "Medium" -> {
                 low = 4.0
                 high = 7.0
             }
             else -> {
-                low = 1.74
-                high = 4.0
+                low = 7.0
+                high = 8.03
             }
         }
         fetchJson(number, low, high)

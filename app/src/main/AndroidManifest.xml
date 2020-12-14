@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".game.view.PlayingGameActivity">
-        </activity>
-        <activity android:name=".finishgame.view.FinishGameActivity" />
+        <activity android:name=".game.view.PlayingGameActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".finishgame.view.FinishGameActivity"/>
 
 
         <meta-data
