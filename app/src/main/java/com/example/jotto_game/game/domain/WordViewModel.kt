@@ -16,7 +16,9 @@ import javax.inject.Named
 
 private const val SECRET_WORD_KEY = "secretwordkey"
 
-
+/** class for working with methods with which it is possible to call for repository.
+ * keeps variables with LiveData that can be subscribed on(observers, subscribtions, etc) inside
+ */
 class WordViewModel
 @Inject constructor(application: Application,
             @Named("secure") var secureSharedPrefs: SharedPreferencesWrapper,
