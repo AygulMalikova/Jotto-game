@@ -17,7 +17,7 @@
             android:id="@+id/word_tocheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="24dp"
             android:autofillHints=""
             android:hint="@string/type_word_here"
             android:inputType="textLongMessage"
@@ -29,7 +29,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/word_tocheck">
@@ -38,36 +38,37 @@
                 android:id="@+id/check_word_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:text="@string/check"
-                app:backgroundTint="@color/secondary"
-                android:layout_marginEnd="20dp" />
+                app:backgroundTint="@color/secondary" />
 
             <Button
                 android:id="@+id/give_up_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:text="@string/give_up"
-                app:backgroundTint="@color/primary"
-                android:layout_marginStart="20dp" />
+                app:backgroundTint="@color/primary" />
 
         </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="231dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:padding="4dp"
                 tools:listitem="@layout/example_item" />
@@ -85,11 +86,11 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="230dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/caveat_bold"
             android:text="@string/can_you_guess_the_word"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.582"

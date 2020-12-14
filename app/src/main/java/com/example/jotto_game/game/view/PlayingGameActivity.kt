@@ -72,13 +72,6 @@ class PlayingGameActivity : AppCompatActivity() {
             }
         })
 
-//        while (true) {
-//            if (str != "-1") {
-//                println(str)
-//                break
-//            }
-//        }
-
         check_word_button.setOnClickListener {
             val similarCount = checkWord(str)
             if (similarCount == str.length) {
@@ -111,6 +104,8 @@ class PlayingGameActivity : AppCompatActivity() {
         }
     }
 
+
+    // Launches finishing game activity
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {
         Toast.makeText(
             this, "Game is finished",
@@ -132,6 +127,8 @@ class PlayingGameActivity : AppCompatActivity() {
 
     }
 
+
+    // Transfer parameters to api request
     private fun generateWord(level: String, letters: String) {
         val number = letters.toInt()
         var low = 0.0
@@ -154,6 +151,7 @@ class PlayingGameActivity : AppCompatActivity() {
     }
 
 
+    // Request word from api with given parameters
     fun fetchJson(number: Int, low: Double, high: Double) {
         val client = OkHttpClient()
         val request = Request.Builder()
