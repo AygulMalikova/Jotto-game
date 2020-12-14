@@ -52,12 +52,13 @@ class PlayingGameActivity : AppCompatActivity() {
         )
         soundService!!.start()
 
+
+        // subscribe on all words
         wordViewModel.allWords.observe(this, Observer { words ->
-            // Update the cached copy of the words in the adapter.
-            println(words)
             words?.let { wordList.addAll(it) }
         })
 
+        // subscribe on secret word
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
             if (finishGame) {
                 str = ""

@@ -10,8 +10,8 @@ import com.example.jotto_game.game.data.ExampleItem
 @Dao
 interface WordDao {
 
-    @Query("SELECT * from word_table ORDER BY word ASC")
-    fun getAlphabetizedWords(): LiveData<List<ExampleItem>>
+    @Query("SELECT * from word_table")
+    fun getWords(): LiveData<List<ExampleItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(word: ExampleItem)

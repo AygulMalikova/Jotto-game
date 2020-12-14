@@ -13,27 +13,26 @@ import com.example.jotto_game.game.domain.WordViewModel
 import com.example.jotto_game.game.sharedpreferences.SharedPreferencesWrapper
 import com.skydoves.balloon.*
 import javax.inject.Inject
+import androidx.lifecycle.Observer
 
 
 class MainActivity : AppCompatActivity() {
-    var isPlaying: Boolean = false; //variable for handling state of application when user closes the app
-    var letters = ""
-    var diff= ""
 
-    private lateinit var sharedPreferences: SharedPreferences;
+    @Inject lateinit var wordViewModel: WordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharedPreferences = getSharedPreferences("my_dictionary", Context.MODE_PRIVATE)
+        (application as GameApplication).appComponent.inject(this)
 
-        val secretWord = sharedPreferences.getString("secretwordkey", "")
-
-        println(secretWord)
-        if (secretWord != "") {
-            startGame("5", "Easy")
-        }
+        // subscribe on secret word
+        wordViewModel.secretWord.observe(this, Observer { lastWord ->
+            if (lastWord != "") {
+                // if there is already a secret word then continue a game
+                startGame(getString(R.string.default_letter), getString(R.string.default_diff))
+            }
+        })
     }
 
     /**
@@ -58,27 +57,6 @@ class MainActivity : AppCompatActivity() {
         helperBtn.showAlignBottom(balloon)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        //saving is logged in state of the user
-        outState.putBoolean(getString(R.string.is_playing), isPlaying);
-        outState.putString(getString(R.string.letters), letters);
-        outState.putString(getString(R.string.difficulty), diff);
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        // getting saved instance state
-        val isPlayingState = savedInstanceState.getBoolean(getString(R.string.is_playing), false)
-        val numberOfLetters = savedInstanceState.getString(getString(R.string.letters),  getString(R.string.default_letter))
-        val difficulty = savedInstanceState.getString(getString(R.string.difficulty), getString(R.string.default_diff))
-        //if user was logged in when redirect to the main page
-        println(isPlayingState)
-        if (isPlayingState) {
-            startGame(numberOfLetters, difficulty)
-        }
-    }
-
     /**
      * Creating new intent with game activity and finishing current activity
      */
@@ -89,10 +67,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(getString(R.string.difficulty), difficulty)
 
         startActivity(intent)
-
-        isPlaying = true;
-        letters = numberOfLetters
-        diff = difficulty
 
         this.finish()
     }

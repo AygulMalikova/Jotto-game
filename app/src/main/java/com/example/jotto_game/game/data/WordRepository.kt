@@ -7,7 +7,7 @@ import com.example.jotto_game.game.data.WordDao
 
 class WordRepository(private val wordDao: WordDao) {
 
-    val allWords: LiveData<List<ExampleItem>> = wordDao.getAlphabetizedWords()
+    val allWords: LiveData<List<ExampleItem>> = wordDao.getWords()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
