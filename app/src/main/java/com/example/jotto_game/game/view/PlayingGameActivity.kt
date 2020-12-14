@@ -64,7 +64,9 @@ class PlayingGameActivity : AppCompatActivity() {
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
             if (finishGame) {
                 str = ""
+                wordViewModel.resetDB()
             } else {
+                println(lastWord)
                 if (lastWord.isNotEmpty()) {
                     str = lastWord
                 } else {
