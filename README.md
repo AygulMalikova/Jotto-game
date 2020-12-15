@@ -36,8 +36,6 @@ com.google.dagger
 
 API for generating words - https://www.wordsapi.com/
 
-## How to launch
-
 ## General workflow
 <img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/workflow.jpg" 
 alt="General components communication idea"  width=40% height=40% border="10" /></a>
