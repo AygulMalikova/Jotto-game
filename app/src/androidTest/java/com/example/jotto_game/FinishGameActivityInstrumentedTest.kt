@@ -29,7 +29,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class FinishGameActivityInstrumentedTest {
-    var context: Context? = null
 
     @get:Rule
     val activityRule = ActivityTestRule(FinishGameActivity::class.java)
