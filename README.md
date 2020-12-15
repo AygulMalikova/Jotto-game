@@ -34,7 +34,9 @@ google.android.material
 
 com.google.dagger
 
-test.espresso
+linter - ktlint -   ktlint.github.io
+
+testing - test.espresso 
 
 API for generating words - https://www.wordsapi.com/
 
