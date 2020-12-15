@@ -34,7 +34,7 @@ google.android.material
 
 com.google.dagger
 
-linter - ktlint -   ktlint.github.io
+linter - ktlint -   https://ktlint.github.io
 
 testing - test.espresso 
 
