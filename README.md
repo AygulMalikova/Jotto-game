@@ -34,6 +34,8 @@ google.android.material
 
 com.google.dagger
 
+test.espresso
+
 API for generating words - https://www.wordsapi.com/
 
 ## General workflow
