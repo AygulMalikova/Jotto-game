@@ -39,7 +39,15 @@ linter - ktlint -   ktlint.github.io
 testing - test.espresso 
 
 API for generating words - https://www.wordsapi.com/
-
+## Linter
+### How to run the linter check
+```
+gradlew app:ktlint --scan
+```
+### How to run linter reformat
+```
+gradlew klintFormat
+```
 ## General workflow
 <img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/workflow.jpg" 
 alt="General components communication idea"  width=40% height=40% border="10" /></a>
