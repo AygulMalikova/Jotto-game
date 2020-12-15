@@ -9,10 +9,10 @@ import com.example.jotto_game.game.data.ExampleItem
 import com.example.jotto_game.game.data.WordRepository
 import com.example.jotto_game.game.data.WordRoomDatabase
 import com.example.jotto_game.game.sharedpreferences.SharedPreferencesWrapper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val SECRET_WORD_KEY = "secretwordkey"
 
@@ -20,9 +20,11 @@ private const val SECRET_WORD_KEY = "secretwordkey"
  * keeps variables with LiveData that can be subscribed on(observers, subscribtions, etc) inside
  */
 class WordViewModel
-@Inject constructor(application: Application,
-            @Named("secure") var secureSharedPrefs: SharedPreferencesWrapper,
-            @Named("notSecure") var sharedPrefs: SharedPreferencesWrapper) : AndroidViewModel(application) {
+@Inject constructor(
+    application: Application,
+    @Named("secure") var secureSharedPrefs: SharedPreferencesWrapper,
+    @Named("notSecure") var sharedPrefs: SharedPreferencesWrapper
+) : AndroidViewModel(application) {
 
     private val repository: WordRepository
     val allWords: LiveData<List<ExampleItem>>

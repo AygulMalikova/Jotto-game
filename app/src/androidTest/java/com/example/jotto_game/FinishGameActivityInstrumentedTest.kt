@@ -1,14 +1,15 @@
 package com.example.jotto_game
 
-
-import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.widget.TextView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+
+
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -19,7 +20,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -37,7 +37,6 @@ class FinishGameActivityInstrumentedTest {
     fun setup() {
         val activityUnderTest: FinishGameActivity = activityRule.activity
         activityUnderTest.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
-
     }
 
     /**
@@ -56,7 +55,6 @@ class FinishGameActivityInstrumentedTest {
         onView(withId(R.id.finishTextView)).check(matches(isDisplayed()))
         val t = onView(withId(R.id.finishTextView)).toString()
         assertTrue(t.isNotEmpty())
-
     }
 
     /**
@@ -84,8 +82,4 @@ class FinishGameActivityInstrumentedTest {
             assertTrue(activityRule.activity.isDestroyed)
         }
     }
-
 }
-
-
-

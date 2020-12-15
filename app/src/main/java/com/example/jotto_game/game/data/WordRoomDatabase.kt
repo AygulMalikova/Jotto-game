@@ -6,8 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * This is the backend. The database. This used to be done by the OpenHelper.
@@ -23,8 +21,8 @@ abstract class WordRoomDatabase : RoomDatabase() {
         private var INSTANCE: WordRoomDatabase? = null
 
         fun getDatabase(
-                context: Context,
-                scope: CoroutineScope
+            context: Context,
+            scope: CoroutineScope
         ): WordRoomDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -47,7 +45,7 @@ abstract class WordRoomDatabase : RoomDatabase() {
         }
 
         private class WordDatabaseCallback(
-                private val scope: CoroutineScope
+            private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
             /**
              * Override the onOpen method to populate the database.

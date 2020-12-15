@@ -3,29 +3,37 @@ package com.example.jotto_game.game.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jotto_game.game.domain.WordViewModel
 import com.example.jotto_game.GameApplication
 import com.example.jotto_game.R
 import com.example.jotto_game.finishgame.view.FinishGameActivity
 import com.example.jotto_game.game.adapters.WordAdapter
 import com.example.jotto_game.game.data.ExampleItem
+import com.example.jotto_game.game.domain.WordViewModel
 import com.example.jotto_game.game.service.BackgroundSoundService
-import kotlinx.android.synthetic.main.playing_game.*
-import okhttp3.*
-import org.json.JSONObject
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.random.Random
+import kotlinx.android.synthetic.main.playing_game.check_word_button
+import kotlinx.android.synthetic.main.playing_game.give_up_button
+import kotlinx.android.synthetic.main.playing_game.recycler_view
+import kotlinx.android.synthetic.main.playing_game.soundButton
+import kotlinx.android.synthetic.main.playing_game.word_tocheck
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
 
 class PlayingGameActivity : AppCompatActivity() {
     private var soundService: BackgroundSoundService? = null
-    var str = "-1";
+    var str = "-1"
     var soundOn = true
     var finishGame = false
 
@@ -59,7 +67,6 @@ class PlayingGameActivity : AppCompatActivity() {
             attempts = wordList.size
         })
 
-
         // subscribe on secret word
         wordViewModel.secretWord.observe(this, Observer { lastWord ->
             if (finishGame) {
@@ -91,7 +98,7 @@ class PlayingGameActivity : AppCompatActivity() {
 
         give_up_button.setOnClickListener {
             finishGame(str, attempts, false)
-            soundService!!.pause();
+            soundService!!.pause()
         }
 
         soundButton.setOnClickListener {
@@ -101,11 +108,9 @@ class PlayingGameActivity : AppCompatActivity() {
             } else {
                 soundService!!.start()
                 soundOn = true
-
             }
         }
     }
-
 
     // Launches finishing game activity
     private fun finishGame(word: String, attempts: Int, flag: Boolean) {
@@ -113,7 +118,6 @@ class PlayingGameActivity : AppCompatActivity() {
             this, "Game is finished",
             Toast.LENGTH_SHORT
         ).show()
-
 
         val intent = Intent(this, FinishGameActivity::class.java)
         intent.putExtra(resources.getString(R.string.sourceWord), word)
@@ -126,9 +130,7 @@ class PlayingGameActivity : AppCompatActivity() {
 
         startActivity(intent)
         this.finish()
-
     }
-
 
     // Transfer parameters to api request
     private fun generateWord(level: String, letters: String) {
@@ -152,12 +154,11 @@ class PlayingGameActivity : AppCompatActivity() {
         fetchJson(number, low, high)
     }
 
-
     // Request word from api with given parameters
     fun fetchJson(number: Int, low: Double, high: Double) {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("https://wordsapiv1.p.rapidapi.com/words/?letterPattern=%5E(%3F%3A(%5BA-Za-z%5D)(%3F!.*%5C1))*%24&pronunciationpattern=.*%C3%A6m%24&letters=${number}&limit=1000&page=1&frequencymin=${low}&frequencymax=${high}")
+            .url("https://wordsapiv1.p.rapidapi.com/words/?letterPattern=%5E(%3F%3A(%5BA-Za-z%5D)(%3F!.*%5C1))*%24&pronunciationpattern=.*%C3%A6m%24&letters=$number&limit=1000&page=1&frequencymin=$low&frequencymax=$high")
             .get()
             .addHeader("x-rapidapi-key", "4850f84b02mshe3f79bc0d6e5e39p1492cajsnae0a99006cbb")
             .addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
@@ -176,11 +177,9 @@ class PlayingGameActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call, e: IOException) {
-
             }
         })
     }
-
 
     private fun checkWord(generated: String): Int {
         var word = word_tocheck.text.toString()
@@ -227,7 +226,6 @@ class PlayingGameActivity : AppCompatActivity() {
                 return counter
             }
         }
-
     }
 
     private fun hasSimilarLetters(word: String): Boolean {
@@ -240,7 +238,6 @@ class PlayingGameActivity : AppCompatActivity() {
             }
         }
         return false
-
     }
 
     override fun onDestroy() {

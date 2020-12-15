@@ -1,15 +1,18 @@
 package com.example.jotto_game.start.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import com.example.jotto_game.R
 import com.google.android.material.textfield.TextInputLayout
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-
 
 /**
  * A simple [Fragment] subclass.
@@ -25,7 +28,8 @@ class SetupFragment : Fragment() {
     private lateinit var numberOfLettersInput: EditText
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -39,7 +43,7 @@ class SetupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        startBtn = view.findViewById(R.id.start_button)//finding the start game button
+        startBtn = view.findViewById(R.id.start_button) // finding the start game button
 
         difficulties = arrayOf(getString(R.string.default_diff), getString(R.string.medium_diff), getString(R.string.hard_diff))
 
@@ -56,7 +60,7 @@ class SetupFragment : Fragment() {
             (requireActivity() as MainActivity).setupHelper(
                 helperButton,
                 resources.getString(R.string.helper_text)
-            );
+            )
         }
     }
 
@@ -65,7 +69,7 @@ class SetupFragment : Fragment() {
      */
     private fun initInput(view: View) {
         numberOfLettersInput =
-            view.findViewById<EditText>(R.id.number_of_words_input)//finding the start game button
+            view.findViewById<EditText>(R.id.number_of_words_input) // finding the start game button
 
         numberOfLettersInput.setText(getString(R.string.default_letter)); // 5 is a default number of letters in the word
 
@@ -125,8 +129,7 @@ class SetupFragment : Fragment() {
 
         // setSelection is not working for better spinner https://github.com/Lesilva/BetterSpinner/issues/92
         spinner.getEditableText()
-            .append(getString(R.string.default_diff)); //setting the first choice as a default value
-
+            .append(getString(R.string.default_diff)); // setting the first choice as a default value
     }
 
     /**

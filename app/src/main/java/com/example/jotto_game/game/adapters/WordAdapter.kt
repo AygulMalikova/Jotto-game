@@ -34,7 +34,6 @@ class WordAdapter(private val wordList: List<ExampleItem>) :
         val currentItem = wordList[position]
         holder.wordView.text = currentItem.word
         holder.numberView.text = currentItem.number
-
     }
 
     override fun getItemCount() = wordList.size

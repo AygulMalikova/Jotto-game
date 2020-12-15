@@ -5,6 +5,7 @@ plugins {
 
 }
 apply plugin: 'kotlin-kapt'
+apply from: "../ktlint.gradle"
 
 
 android {

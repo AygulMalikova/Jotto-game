@@ -1,8 +1,8 @@
 package com.example.jotto_game
 
 import android.app.Application
-import com.example.jotto_game.game.di.DaggerApplicationComponent
 import com.example.jotto_game.game.di.ApplicationComponent
+import com.example.jotto_game.game.di.DaggerApplicationComponent
 
 class GameApplication : Application() {
 
@@ -17,5 +17,4 @@ class GameApplication : Application() {
     companion object {
         lateinit var APPLICATION: Application
     }
-
 }

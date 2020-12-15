@@ -1,20 +1,21 @@
 package com.example.jotto_game
 
-
 import android.content.Intent
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isClickable
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.example.jotto_game.start.view.MainActivity
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -32,7 +33,6 @@ class MainActivityInstrumentedTest {
     fun setup() {
         val activityUnderTest: MainActivity = activityRule.activity
         activityUnderTest.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
-
     }
 
     /**
@@ -51,7 +51,6 @@ class MainActivityInstrumentedTest {
     fun helperBtnView() {
         onView(withId(R.id.helper)).check(matches(allOf(isDisplayed())))
         onView(withId(R.id.helper)).check(matches(allOf(isClickable())))
-
     }
 
     /**
@@ -62,8 +61,6 @@ class MainActivityInstrumentedTest {
         onView(withId(R.id.start_button)).check(matches(allOf(isDisplayed())))
     }
 
-
-
     /**
      *test the depicting of logo at setup screen
      */
@@ -72,11 +69,4 @@ class MainActivityInstrumentedTest {
         onView(withId(R.id.logo_image)).check(matches(allOf(isDisplayed())))
         onView(withId(R.id.logo_image)).check(matches(allOf(not(isClickable()))))
     }
-
 }
-
-
-
-
-
-

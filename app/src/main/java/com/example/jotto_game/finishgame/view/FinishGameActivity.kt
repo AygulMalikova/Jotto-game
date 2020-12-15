@@ -1,11 +1,9 @@
 package com.example.jotto_game.finishgame.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jotto_game.R
-import com.example.jotto_game.game.view.PlayingGameActivity
 import kotlinx.android.synthetic.main.activity_finish_game.*
 
 class FinishGameActivity : AppCompatActivity() {
@@ -17,7 +15,7 @@ class FinishGameActivity : AppCompatActivity() {
         val userWin: Boolean
 
         val extras = intent.extras
-        //get info about the game results: hidden word, number of attempts were done and result(lose/win)
+        // get info about the game results: hidden word, number of attempts were done and result(lose/win)
         if (extras != null) {
             word = extras.getString(resources.getString(R.string.sourceWord)).toString()
             numberOfTries = extras.getInt(resources.getString(R.string.numberOfAttempts))
@@ -28,7 +26,7 @@ class FinishGameActivity : AppCompatActivity() {
             userWin = false
         }
 
-        //set picture and textdepending on result
+        // set picture and textdepending on result
         if (userWin) {
             finishImageView.setImageDrawable(
                 ContextCompat.getDrawable(this, R.drawable.win)
@@ -36,7 +34,6 @@ class FinishGameActivity : AppCompatActivity() {
 
             val message = resources.getString(R.string.winMessage, numberOfTries, word)
             finishTextView.text = message
-
         } else {
             finishImageView.setImageDrawable(
                 ContextCompat.getDrawable(this, R.drawable.lose)
@@ -44,12 +41,10 @@ class FinishGameActivity : AppCompatActivity() {
             val message = resources.getString(R.string.loseMessage, word)
             finishTextView.text = message
         }
-    //return to game setup screen
+    // return to game setup screen
         finishButton.setOnClickListener {
 
             this.finish()
         }
-
-
     }
 }
