@@ -34,11 +34,34 @@ google.android.material
 
 com.google.dagger
 
-linter - ktlint -   https://ktlint.github.io
+ktlint - linter - https://ktlint.github.io
 
-testing - test.espresso 
+test.espresso - testing 
 
 API for generating words - https://www.wordsapi.com/
+
+## Download and launch
+1) clone the project https://github.com/AygulMalikova/Jotto-game  in AS -> VCS -> Get from Version Control
+<img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/checkout.jpg" 
+alt="IMAGE ALT TEXT HERE"  width=50% height=50% border="30" /></a>
+
+1'') or download master zip, unzip. and open with Android studio
+
+<img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/download.jpg" alt="IMAGE ALT TEXT HERE"  width=50% height=50% border="30" /></a>
+
+2) wait a bit for AS to prepare, optionally press 'build'
+
+3) connect physical device or emulator (edit configurations for that, module to start - app)
+
+<img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/editconf.jpg" alt="IMAGE ALT TEXT HERE"  width=50% height=50% border="30" /></a>
+
+<img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/config.jpg" alt="IMAGE ALT TEXT HERE"  width=75% height=75% border="30" /></a>
+
+4) press green triangle <run>
+ 
+ <img src="https://github.com/AygulMalikova/Jotto-game/blob/master/imagesForReadme/run.jpg" alt="IMAGE ALT TEXT HERE"  width=75% height=75% border="30" /></a>
+
+ 
 ## Linter
 ### How to run the linter check
 ```
